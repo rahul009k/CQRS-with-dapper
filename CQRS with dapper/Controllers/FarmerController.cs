@@ -28,19 +28,19 @@ namespace CQRS_with_dapper.Controllers
             return Ok(result);
         }
         [HttpGet("{id}")]
-        public async Task<ActionResult<Farmer>> GetFarmerById(int id)
+        public async Task<IActionResult> GetFarmerById(int id)
         {
             var result = await _mediator.Send(new GetFarmerById(id));
             return Ok(result);
         }
         [HttpPost]
-        public async Task<ActionResult<Farmer>> AddNewFarmer(FarmerDto farmerDto)
+        public async Task<IActionResult> AddNewFarmer(FarmerDto farmerDto)
         {
             var result = await _mediator.Send(new AddFarmerCommand(farmerDto.Name, farmerDto.Address, farmerDto.Phone_number));
             return Ok(result);
         }
         [HttpDelete("{Id}")]
-        public async Task<ActionResult> DeleteFarmerById(int Id)
+        public async Task<IActionResult> DeleteFarmerById(int Id)
         {
             var result = await _mediator.Send(new DeleteFarmerCommand(Id));
             if (result)
@@ -53,7 +53,7 @@ namespace CQRS_with_dapper.Controllers
             }
         }
         [HttpPut("{Id}")]
-        public async Task<ActionResult> UpdateFarmerById(int Id,FarmerDto farmerDto)
+        public async Task<IActionResult> UpdateFarmerById(int Id,FarmerDto farmerDto)
         {
             var result = await _mediator.Send(new updateFarmerCommand(Id,farmerDto.Name,farmerDto.Address,farmerDto.Phone_number));
             if (result)
