@@ -3,7 +3,7 @@ using MediatR;
 
 namespace CQRS_with_dapper.Data.Query
 {
-    public class GetAllFarmer:IRequest<List<Farmer>>
+    public class GetAllFarmer:IRequest<List<Farmer?>>
     {
     }
 }

@@ -21,9 +21,10 @@ namespace CQRS_with_dapper.Controllers
 
         // GET: api/<FarmerController>
         [HttpGet]
-        public async Task<ActionResult<List<Farmer>>> GetAll()
+        public async Task<IActionResult> GetAll()
         {
             var result = await _mediator.Send(new GetAllFarmer());
+            if (result is null) return Ok(new List<Farmer>());
             return Ok(result);
         }
         [HttpGet("{id}")]

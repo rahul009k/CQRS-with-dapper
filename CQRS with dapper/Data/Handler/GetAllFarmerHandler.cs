@@ -9,7 +9,7 @@ using System.Data;
 
 namespace CQRS_with_dapper.Data.Handler
 {
-    public class GetAllFarmerHandler : IRequestHandler<GetAllFarmer, List<Farmer>>
+    public class GetAllFarmerHandler : IRequestHandler<GetAllFarmer, List<Farmer?>>
     {
         private readonly DBConnectionApp _connection;
 
@@ -18,19 +18,12 @@ namespace CQRS_with_dapper.Data.Handler
             _connection = connection;
         }
 
-        public async Task<List<Farmer>> Handle(GetAllFarmer request, CancellationToken cancellationToken)
+        public async Task<List<Farmer?>> Handle(GetAllFarmer request, CancellationToken cancellationToken)
         {
            using(SqlConnection con=_connection.GetSqlConnection())
             {
                 var result = await con.QueryAsync<Farmer>("GetallFarmer", CommandType.StoredProcedure);
-                if(result!=null)
-                {
-                    return result.ToList(); 
-                }
-                else
-                {
-                    return new List<Farmer>();
-                }
+                return result.Cast<Farmer?>().ToList();
 
             }
         }
