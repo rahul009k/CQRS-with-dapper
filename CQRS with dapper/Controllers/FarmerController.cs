@@ -37,15 +37,20 @@ namespace CQRS_with_dapper.Controllers
         public async Task<IActionResult> AddNewFarmer(FarmerDto farmerDto)
         {
             var result = await _mediator.Send(new AddFarmerCommand(farmerDto.Name, farmerDto.Address, farmerDto.Phone_number));
+
+            if (result == null)
+                return BadRequest(new { message = "Failed to add farmer" }); 
+
             return Ok(result);
         }
+
         [HttpDelete("{Id}")]
         public async Task<IActionResult> DeleteFarmerById(int Id)
         {
             var result = await _mediator.Send(new DeleteFarmerCommand(Id));
             if (result)
             {
-                return Ok(new { message = "Farmer deleted successfully" });
+                return Ok(new { message = "Farmer Deleted successfully" });
             }
             else
             {

@@ -42,10 +42,11 @@ namespace DAPPER_UNIT_TEST.UnitTest
         {
             _mockMediator.Setup(m => m.Send(It.IsAny<GetAllFarmer>(), default)).ReturnsAsync(new List<Farmer?>());
             var result = await _farmerController.GetAll();
-            Assert.NotNull(result);
-            var actionResult = Assert.IsType<ActionResult<List<Farmer>>>(result);
-            var value = actionResult.Value;
-            Assert.NotNull(actionResult);
+          
+            var actionResult = Assert.IsType<OkObjectResult>(result);
+           
+            var returnedList = Assert.IsType<List<Farmer>>(actionResult.Value);
+            Assert.Empty(returnedList);
         }
     }
 }

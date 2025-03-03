@@ -7,7 +7,7 @@ using System.Data;
 
 namespace CQRS_with_dapper.Data.Handler
 {
-    public class AddFarmerCommandHandler : IRequestHandler<AddFarmerCommand, FarmerDto>
+    public class AddFarmerCommandHandler : IRequestHandler<AddFarmerCommand, FarmerDto?>
     {
         private readonly DBConnectionApp _connection;
 
@@ -16,7 +16,7 @@ namespace CQRS_with_dapper.Data.Handler
             _connection = connection;
         }
 
-        public async Task<FarmerDto> Handle(AddFarmerCommand request, CancellationToken cancellationToken)
+        public async Task<FarmerDto?> Handle(AddFarmerCommand request, CancellationToken cancellationToken)
         {
             using(var con=_connection.GetSqlConnection())
             {
