@@ -27,7 +27,7 @@ namespace CQRS_with_dapper.Controllers
             if (result is null) return Ok(new List<Farmer>());
             return Ok(result);
         }
-        [HttpGet("{id}")]
+        [HttpGet]
         public async Task<IActionResult> GetFarmerById(int id)
         {
             var result = await _mediator.Send(new GetFarmerById(id));
